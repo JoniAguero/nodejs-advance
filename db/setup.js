@@ -1,16 +1,31 @@
 'use strict'
 
-const debug = require('debug')
+const debug = require('debug')('versedb:db:setup')
+const inquirer = require('inquirer')
+const chalk = require('chalk')
 const db = require('./')
-async function setup () {
+
+const prompt = inquirer.createPromptModule()
+
+async function setup() {
+  const answer = await prompt([{
+    type: 'confirm',
+    name: 'setup',
+    message: 'This will destroy your database, are you sure?'
+  }])
+  
+  if(!answer.setup){
+    return console.log('Nothing happened :)')
+  }
   const config = {
     database: process.env.DB_NAME || 'versedb',
     username: process.env.DB_USER || 'joni',
+    password: process.env.DB_PASS || 'joni',
     host: process.env.DB_HOST || 'localhost',
-    port: '5432',
     dialect: 'postgres',
     logging: s => debug(s),
-    setup: true
+    setup: true,
+    operatorsAliases: false
   }
 
   await db(config).catch(handleFatalError)
@@ -19,8 +34,10 @@ async function setup () {
   process.exit(0)
 }
 
-function handleFatalError (err) {
-  console.error(err.message)
+function handleFatalError(err) {
+  console.error(`${chalk.red('[fatal error]')} ${err.message}`)
   console.error(err.stack)
   process.exit(1)
 }
+
+setup()

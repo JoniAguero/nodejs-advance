@@ -14,6 +14,10 @@ module.exports = async function (config) {
 
   await sequelize.authenticate() /* Se conecta a la BD. authenticate es una promise */
 
+  if (config.setup) {
+    await sequelize.sync({ force: true })
+  }
+
   const Agent = {}
   const Metric = {}
 
