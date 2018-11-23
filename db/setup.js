@@ -7,14 +7,14 @@ const db = require('./')
 
 const prompt = inquirer.createPromptModule()
 
-async function setup() {
+async function setup () {
   const answer = await prompt([{
     type: 'confirm',
     name: 'setup',
     message: 'This will destroy your database, are you sure?'
   }])
-  
-  if(!answer.setup){
+
+  if (!answer.setup) {
     return console.log('Nothing happened :)')
   }
   const config = {
@@ -34,7 +34,7 @@ async function setup() {
   process.exit(0)
 }
 
-function handleFatalError(err) {
+function handleFatalError (err) {
   console.error(`${chalk.red('[fatal error]')} ${err.message}`)
   console.error(err.stack)
   process.exit(1)
