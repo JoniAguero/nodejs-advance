@@ -27,6 +27,10 @@ test.beforeEach(async () => {
     hasMany: sandbox.spy()
   }
 
+  // Model findById Stub
+  AgentStub.findById = sandbox.stub()
+  AgentStub.findById.withArgs(id).returns(Promise.resolve(agentFixtures.byId(id))) /* Cuando ejecutamops finbyId con el parametro id (withArgs), esta tiene que retornar (returns) una promesa que resuelve agentFixtures.byId(id) */
+
   const setupDatabase = proxyquire('../', {
     './models/agent': () => AgentStub,
     './models/metric': () => MetricStub
