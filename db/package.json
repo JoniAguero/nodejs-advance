@@ -6,12 +6,14 @@
   "scripts": {
     "setup": "SET DEBUG=versedb:* && node setup.js",
     "lint": "standard --fix",
-    "test": "SET DEBUG=versedb:* && ava tests/ --verbose"
+    "test": "SET DEBUG=versedb:* && ava tests/ --verbose",
+    "test-nyc": "SET DEBUG=versedb:* && nyc --reporter=lcov ava tests/ --verbose"
   },
   "author": "JoniAguero",
   "license": "MIT",
   "devDependencies": {
     "ava": "^0.25.0",
+    "nyc": "^13.1.0",
     "sqlite3": "^4.0.4",
     "standard": "^12.0.1"
   },
