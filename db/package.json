@@ -4,7 +4,7 @@
   "description": "A simple platform IOT Platform - DB Module",
   "main": "index.js",
   "scripts": {
-    "setup": "SET DEBUG=versedb:* && node setup.js",
+    "setup": "SET DEBUG=versedb:* && node setup.js --yes",
     "lint": "standard --fix",
     "test": "SET DEBUG=versedb:* && ava tests/ --verbose",
     "test-nyc": "SET DEBUG=versedb:* && nyc --reporter=lcov ava tests/ --verbose"
