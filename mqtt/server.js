@@ -4,6 +4,7 @@ const debug = require('debug')('versedb:mqtt')
 const mosca = require('mosca')
 const redis = require('redis')
 const chalk = require('chalk')
+const db = require('db')
 
 const backend = {
   type: 'redis',
@@ -16,7 +17,20 @@ const settings = {
   backend
 }
 
+const config = {
+    database: process.env.DB_NAME || 'versedb',
+    username: process.env.DB_USER || 'joni',
+    password: process.env.DB_PASS || 'joni',
+    host: process.env.DB_HOST || 'localhost',
+    dialect: 'postgres',
+    logging: s => debug(s),
+    setup: true,
+    operatorsAliases: false
+}
+
 const server = new mosca.Server(settings)
+
+let Agent, Metric
 
 server.on('clientConnected', client => {
   debug(`Client Connected: ${client.id}`)
@@ -31,7 +45,12 @@ server.on('published', (packet, client) => {
   debug(`Payload: ${packet.payload}`)
 })
 
-server.on('ready', () => {
+server.on('ready', async () => {
+  const services = await db(config).catch(handleFatalError)
+
+  Agent = services.Agent
+  Metric = services.Metric
+
   console.log(`${chalk.green('[versedb-mqtt]')} server is running`)
 })
 
