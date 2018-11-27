@@ -2,16 +2,16 @@
 
 function parsePayload (payload) {
   if (payload instanceof Buffer) {
+    console.log('is buffer');
     payload = payload.toString('utf8')
   }
 
   try {
-    payload = JSON.parse(payload)
+      return payload = JSON.parse(payload)
   } catch (e) {
-    payload = null
+      return payload = null
   }
 
-  return payload
 }
 
 module.exports = {

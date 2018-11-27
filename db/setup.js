@@ -3,7 +3,7 @@
 const inquirer = require('inquirer')
 const chalk = require('chalk')
 const db = require('./')
-const config = require('./config.setup')()
+const config = require('./config-setup')()
 
 const prompt = inquirer.createPromptModule()
 

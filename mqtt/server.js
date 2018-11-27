@@ -5,7 +5,7 @@ const mosca = require('mosca')
 const redis = require('redis')
 const chalk = require('chalk')
 const db = require('db')
-const config = require('../db/config.setup')(false)
+const config = require('../db/config-setup')(false)
 
 const { parsePayload } = require('./utils')
 
@@ -69,15 +69,16 @@ server.on('published', async (packet, client) => {
       break
     case 'agent/message':
       debug(`Payload: ${packet.payload}`)
-
+      
       const payload = parsePayload(packet.payload)
 
       if (payload) {
         payload.agent.connected = true
-
+        
         let agent
         try {
           agent = await Agent.createOrUpdate(payload.agent)
+          console.log(agent);
         } catch (e) {
           return handleError(e)
         }
