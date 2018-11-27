@@ -74,6 +74,19 @@ server.on('published', async (packet, client) => {
             })
           })
         }
+
+        // Store Metrics
+        for (let metric of payload.metrics) {
+          let m
+
+          try {
+            m = await Metric.create(agent.uuid, metric)
+          } catch (e) {
+            return handleError(e)
+          }
+
+          debug(`Metric ${m.id} saved on agent ${agent.uuid}`)
+        }
       }
       break
   }
