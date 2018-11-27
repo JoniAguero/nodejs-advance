@@ -13,6 +13,8 @@ async function run(){
 
     const { Agent, Metric } = await db(config).catch(handleFatalError)
 
+    /* Creamos un agente */
+
     const agent = await Agent.createOrUpdate({
         uuid: 'yyy',
         name: 'test',
@@ -22,9 +24,20 @@ async function run(){
         connected: true,
     }).catch(handleFatalError)
 
+    const metric = await Metric.create(agent.uuid, {
+        type: 'memory',
+        value: 300
+    }).catch(handleFatalError)
+
     console.log('--agent--');
     console.log(agent);
-    
+
+    console.log('--metric--');
+    console.log(metric);
+
+    const metrics = await Metric.findAgentByUuid(agent.uuid).catch(handleFatalError)
+    console.log('--metrics--');
+    console.log(metrics);
 }
 
 function handleFatalError(err){
