@@ -27,10 +27,36 @@ let Agent, Metric
 
 server.on('clientConnected', client => {
   debug(`Client Connected: ${client.id}`)
+  clients.set(client.id, null)
 })
 
-server.on('clientDisconnected', client => {
+server.on('clientDisconnected', async (client) => {
   debug(`Client Disconnected: ${client.id}`)
+  const agent = clients.get(client.id)
+
+  if (agent) {
+    // Mark Agent as Disconnected
+    agent.connected = false
+
+    try {
+      await Agent.createOrUpdate(agent)
+    } catch (e) {
+      return handleError(e)
+    }
+
+    // Delete Agent from Clients List
+    clients.delete(client.id)
+
+    server.publish({
+      topic: 'agent/disconnected',
+      payload: JSON.stringify({
+        agent: {
+          uuid: agent.uuid
+        }
+      })
+    })
+    debug(`Client (${client.id}) associated to Agent (${agent.uuid}) marked as disconnected`)
+  }
 })
 
 server.on('published', async (packet, client) => {
