@@ -24,6 +24,8 @@ async function run(){
         connected: true,
     }).catch(handleFatalError)
 
+    /* Creamos una metrica */
+
     const metric = await Metric.create(agent.uuid, {
         type: 'memory',
         value: 300
@@ -34,6 +36,8 @@ async function run(){
 
     console.log('--metric--');
     console.log(metric);
+
+    /* Métodos para ver todas las metricad */
 
     const metrics = await Metric.findAgentByUuid(agent.uuid).catch(handleFatalError)
     console.log('--metrics--');
