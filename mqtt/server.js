@@ -5,6 +5,7 @@ const mosca = require('mosca')
 const redis = require('redis')
 const chalk = require('chalk')
 const db = require('db')
+const config = require('../db/config.setup')(false)
 
 const backend = {
   type: 'redis',
@@ -15,17 +16,6 @@ const backend = {
 const settings = {
   port: 1883,
   backend
-}
-
-const config = {
-    database: process.env.DB_NAME || 'versedb',
-    username: process.env.DB_USER || 'joni',
-    password: process.env.DB_PASS || 'joni',
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'postgres',
-    logging: s => debug(s),
-    setup: true,
-    operatorsAliases: false
 }
 
 const server = new mosca.Server(settings)

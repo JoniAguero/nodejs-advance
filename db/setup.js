@@ -1,9 +1,9 @@
 'use strict'
 
-const debug = require('debug')('versedb:db:setup')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
 const db = require('./')
+const config = require('./config.setup')()
 
 const prompt = inquirer.createPromptModule()
 
@@ -41,17 +41,6 @@ async function setup () {
     if (!answer.setup) {
       returnconsole.log('Nothing happended :)')
     }
-  }
-
-  const config = {
-    database: process.env.DB_NAME || 'versedb',
-    username: process.env.DB_USER || 'joni',
-    password: process.env.DB_PASS || 'joni',
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'postgres',
-    logging: s => debug(s),
-    setup: true,
-    operatorsAliases: false
   }
 
   await db(config).catch(handleFatalError)
