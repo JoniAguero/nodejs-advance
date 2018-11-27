@@ -1,3 +1,5 @@
 /db/node_modules
 /db/coverage
 /db/.nyc_output
+
+/mqtt/node_modules
