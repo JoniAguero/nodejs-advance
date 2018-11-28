@@ -15,7 +15,8 @@
     "chalk": "^2.4.1",
     "db": "file:../db",
     "debug": "^4.1.0",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "express-asyncify": "^1.0.0"
   },
   "devDependencies": {
     "ava": "^0.25.0",

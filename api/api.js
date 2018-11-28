@@ -2,8 +2,29 @@
 
 const debug = require('debug')('versedb:api:routes')
 const express = require('express')
+const asyncify = require('express-asyncify')
+const db = require('versedb-db')
 
-const api = express.Router()
+const config = require('./config')
+
+const api = asyncify(express.Router())
+
+let services, Agent, Metric
+
+api.use('*', async (req, res, next) => {
+  if (!services) {
+    debug('Connecting to database')
+    try {
+      services = await db(config.db)
+    } catch (e) {
+      return next(e)
+    }
+
+    Agent = services.Agent
+    Metric = services.Metric
+  }
+  next()
+})
 
 api.get('/agents', (req, res) => {
   debug('A request has come to /agents')
@@ -12,7 +33,7 @@ api.get('/agents', (req, res) => {
 
 api.get('/agent/:uuid', (req, res, next) => {
   const { uuid } = req.params
-  /* Si uuid es diferente de 'yyy' se lanza el error */
+
   if (uuid !== 'yyy') {
     return next(new Error('Agent not found'))
   }

@@ -4,11 +4,12 @@ const debug = require('debug')('platziverse:api')
 const http = require('http')
 const chalk = require('chalk')
 const express = require('express')
+const asyncify = require('express-asyncify')
 
 const api = require('./api')
 
 const port = process.env.PORT || 3000
-const app = express()
+const app = asyncify(express())
 const server = http.createServer(app)
 
 app.use('/api', api)
@@ -30,8 +31,6 @@ function handleFatalError (err) {
   process.exit(1)
 }
 
-/* 2.Con module.parent le indicamos si es requerido o no desde otro módulo */
-
 if (!module.parent) {
   process.on('uncaughtException', handleFatalError)
   process.on('unhandledRejection', handleFatalError)
@@ -40,7 +39,5 @@ if (!module.parent) {
     console.log(`${chalk.green('[platziverse-api]')} server listening on port ${port}`)
   })
 }
-
-/* 1.Se exporta el servidor para realizar los tests - Si NO fue requerido en otro módulo, puede lanzar el proceso, si fue requerido se exporta */
 
 module.exports = server
