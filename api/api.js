@@ -12,7 +12,7 @@ api.get('/agents', (req, res) => {
 
 api.get('/agent/:uuid', (req, res, next) => {
   const { uuid } = req.params
-
+    /* Si uuid es diferente de 'yyy' se lanza el error */
   if (uuid !== 'yyy') {
     return next(new Error('Agent not found'))
   }
