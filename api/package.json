@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "SET DEBUG=versedb:* && ava tests/ --verbose",
     "start": "NODE_ENV=production node server.js",
-    "start-dev": "nodemon serve.js",
+    "start-dev": "SET DEBUG=versedb:* && nodemon server.js",
     "lint": "standard --fix"
   },
   "author": "JoniAguero",
@@ -16,7 +17,9 @@
     "express": "^4.16.4"
   },
   "devDependencies": {
+    "ava": "^0.25.0",
     "nodemon": "^1.18.7",
-    "standard": "^12.0.1"
+    "standard": "^12.0.1",
+    "supertest": "^3.3.0"
   }
 }

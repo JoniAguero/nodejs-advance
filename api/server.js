@@ -30,9 +30,17 @@ function handleFatalError (err) {
   process.exit(1)
 }
 
-process.on('uncaughtException', handleFatalError)
-process.on('unhandledRejection', handleFatalError)
+/* 2.Con module.parent le indicamos si es requerido o no desde otro módulo */
 
-server.listen(port, () => {
-  console.log(`${chalk.green('[platziverse-api]')} server listening on port ${port}`)
-})
+if (!module.parent) {
+  process.on('uncaughtException', handleFatalError)
+  process.on('unhandledRejection', handleFatalError)
+
+  server.listen(port, () => {
+    console.log(`${chalk.green('[platziverse-api]')} server listening on port ${port}`)
+  })
+}
+
+/* 1.Se exporta el servidor para realizar los tests - Si NO fue requerido en otro módulo, puede lanzar el proceso, si fue requerido se exporta */
+
+module.exports = server

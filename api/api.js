@@ -1,6 +1,6 @@
 'use strict'
 
-const debug = require('debug')('platziverse:api:routes')
+const debug = require('debug')('versedb:api:routes')
 const express = require('express')
 
 const api = express.Router()
@@ -12,7 +12,7 @@ api.get('/agents', (req, res) => {
 
 api.get('/agent/:uuid', (req, res, next) => {
   const { uuid } = req.params
-    /* Si uuid es diferente de 'yyy' se lanza el error */
+  /* Si uuid es diferente de 'yyy' se lanza el error */
   if (uuid !== 'yyy') {
     return next(new Error('Agent not found'))
   }
