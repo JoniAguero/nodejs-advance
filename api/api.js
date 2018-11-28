@@ -3,7 +3,7 @@
 const debug = require('debug')('versedb:api:routes')
 const express = require('express')
 const asyncify = require('express-asyncify')
-const db = require('versedb-db')
+const db = require('db')
 
 const config = require('./config')
 
