@@ -16,7 +16,9 @@
     "db": "file:../db",
     "debug": "^4.1.0",
     "express": "^4.16.4",
-    "express-asyncify": "^1.0.0"
+    "express-asyncify": "^1.0.0",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.4.0"
   },
   "devDependencies": {
     "ava": "^0.25.0",
