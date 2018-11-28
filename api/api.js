@@ -1,6 +1,6 @@
 'use strict'
 
-const debug = require('debug')('platziverse:api:routes')
+const debug = require('debug')('versedb:api:routes')
 const express = require('express')
 const asyncify = require('express-asyncify')
 const auth = require('express-jwt')
