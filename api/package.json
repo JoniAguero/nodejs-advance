@@ -1,19 +1,18 @@
 {
-  "name": "agent",
+  "name": "api",
   "version": "1.0.0",
-  "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "NODE_ENV=production node server.js",
+    "start-dev": "nodemon serve.js",
     "lint": "standard --fix"
   },
   "author": "JoniAguero",
   "license": "MIT",
   "dependencies": {
-    "standard": "^12.0.1",
-    "debug": "^3.0.0",
-    "defaults": "^1.0.3",
-    "mqtt": "^2.11.0",
-    "uuid": "^3.1.0"
+    "chalk": "^2.4.1",
+    "debug": "^4.1.0",
+    "express": "^4.16.4"
   }
 }

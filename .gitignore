@@ -4,5 +4,6 @@
 
 /mqtt/node_modules
 /agent/node_modules
+/api/node_modules
 
 .vscode
