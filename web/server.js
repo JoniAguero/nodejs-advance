@@ -7,18 +7,19 @@ const express = require('express')
 const socketio = require('socket.io')
 const chalk = require('chalk')
 const PlatziverseAgent = require('agent')
-
+const proxy = require('./proxy')
 const {
   pipe
 } = require('./utils')
 
 const port = process.env.PORT || 8080
-const app = express()
+const app = asyncify(express())
 const server = http.createServer(app)
 const io = socketio(server)
 const agent = new PlatziverseAgent()
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/', proxy)
 
 // Socket.io / WebSockets
 io.on('connect', socket => {
