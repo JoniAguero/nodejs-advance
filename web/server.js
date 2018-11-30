@@ -7,7 +7,7 @@ const express = require('express')
 const asyncify = require('express-asyncify')
 const socketio = require('socket.io')
 const chalk = require('chalk')
-const verseAgent = require('verse-agent')
+const verseAgent = require('agent')
 
 const proxy = require('./proxy')
 const {
